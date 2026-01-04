@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+	<head>
+		<html lang="en">
+		<title>Te Maramataka a Te Whānau ā Apanui - Monthly</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="styles/w3.css">
+		<link rel="stylesheet" href="styles/style.css">
+		<link rel="stylesheet" href="custom-font/moonphases.css">
+		<link rel="stylesheet" href="styles/font-awesome.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+		<style>
+		body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+		.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+		.fa-anchor,.fa-coffee {font-size:200px}
+		</style>
+		<script type="text/javascript" src="scripts/script.js"></script>
+		<script type="text/javascript" src="scripts/suncalc.js"></script>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-72792171-2"></script>
+			<script>
+  		window.dataLayer = window.dataLayer || [];
+  		function gtag(){dataLayer.push(arguments);}
+  		gtag('js', new Date());
+
+  		gtag('config', 'UA-72792171-2');
+		</script>
+	</head>
+	<body>
+
+		<!-- Header -->
+		<div class="w3-bar w3-black">
+			<a href="monthly.html" class="w3-bar-item w3-button w3-right">Monthly</a>
+			<a href="index.html" class="w3-bar-item w3-button w3-right">Daily</a>
+		</div>
+		<!--<div class="w3-panel w3-red">
+  		<h3>Note!</h3>
+  		<p>This section is not yet functioning like it should! Please check all calculations manually.</p>-->
+		</div> 
+		<header class="w3-container w3-indigo w3-center" style="padding:128px 16px">
+			<h1 class="w3-margin w3-jumbo"><b>Te Maramataka a Te Whānau ā Apanui</b></h1>
+			<p>Due to the calculations that this website is built on, results may not always be accurate. Please use at your own discretion.</p>
+			<p>Whiro should be between Mutu Whenua and Tirea, and Te Rākaunui should be between Turu and Rākaumatohi.</p>
+		<div class="w3-row w3-mobile">
+			<div class="w3-third w3-container">
+			</div>
+			<div id="selectContainer" class="w3-mobile w3-third w3-container">
+				<select id="cityChoiceSelect" class="w3-select w3-border" name="cityChoice" onchange="getDataThisMonth()">
+					<option value="0" selected>Auckland</option>
+					<option value="1">Wellington</option>
+					<option value="2">Christchurch</option>
+					<option value="3">Hamilton</option>
+					<option value="4">Tauranga</option>
+					<option value="5">Napier/Hastings</option>
+					<option value="6">Dunedin</option>
+					<option value="7">Palmerston North</option>
+					<option value="8">New Plymouth</option>
+					<option value="9">Nelson</option>
+				</select>
+			</div>
+			<div class="w3-third w3-container">
+			</div>
+		</div>
+		<div class="w3-row w3-mobile">
+			<div class="w3-third w3-container">
+			</div>
+			<div id="selectContainer" class="w3-mobile w3-third w3-container">
+				<select id="monthSelect" class="w3-select w3-border" name="month" onchange="getDataThisMonth()">
+					<option value="0">January</option>
+					<option value="1">February</option>
+					<option value="2">March</option>
+					<option value="3">April</option>
+					<option value="4">May</option>
+					<option value="5">June</option>
+					<option value="6">July</option>
+					<option value="7">August</option>
+					<option value="8">September</option>
+					<option value="9">October</option>
+					<option value="10">November</option>
+					<option value="11">December</option>
+				</select>
+			</div>
+			<div class="w3-third w3-container">
+			</div>
+		</div>
+		<div class="w3-row w3-mobile">
+			<div class="w3-third w3-container">
+			</div>
+			<div id="selectContainer" class="w3-mobile w3-third w3-container">
+				<select id="yearSelect" class="w3-select w3-border" name="year" onchange="getDataThisMonth()">
+					<option value="2019">2019</option>
+					<option value="2020">2020</option>
+					<option value="2021">2021</option>
+					<option value="2022">2022</option>
+					<option value="2023">2023</option>
+					<option value="2024">2024</option>
+					<option value="2025">2025</option>
+					<option value="2026">2026</option>
+					<option value="2027">2027</option>
+					<option value="2028">2028</option>
+					<option value="2029">2029</option>
+					<option value="2030">2030</option>
+				</select>
+			</div>
+			<div class="w3-third w3-container">
+			</div>
+		</div>
+		<div class="w3-row w3-mobile">
+			<div class="w3-quarter w3-container">
+			</div>
+			<div id="calendarDiv" class="w3-half w3-responsive">
+				<p class="w3-xlarge"><em>Calendar:</em></p>
+				<p>Pink indicates high reported energy, orange indicates neutral reported energy, dark purple indicates low reported energy (based on findings from <a href="https://tuhi.co.nz/" target="_blank">Tuhi</a>.)</p>
+					<table id="calendarTable" class="w3-table w3-bordered">
+						<tr>
+							<th>Date</th>
+							<th>Moon</th>
+							<th>Rise</th>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr><tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr><tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr><tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr><tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr><tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr><tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr><tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr><tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr><tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr><tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr><tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr><tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr><tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+						<tr>
+							<td>:)</td>
+							<td>:)</td>
+							<td>:)</td>
+						</tr>
+					</table>
+				</p>
+			</div>
+			<div class="w3-quarter w3-container">
+			</div>
+		</div>
+		</header>
+
+		<!-- Footer -->
+		<footer class="w3-container w3-padding-64 w3-center w3-opacity">  
+			<!--<div class="w3-xlarge w3-padding-32">
+				<i class="fa fa-instagram w3-hover-opacity"></i>
+				<i class="fa fa-snapchat w3-hover-opacity"></i>
+				<i class="fa fa-pinterest-p w3-hover-opacity"></i>
+				<i class="fa fa-twitter w3-hover-opacity"></i>
+				<i class="fa fa-linkedin w3-hover-opacity"></i>
+			</div>-->
+		<p>Created by <a href="https://jesspetersen.net/" target="_blank">Jess Petersen</a>, and inspired by <a href="https://tuhi.co.nz/" target="_blank">Tuhi</a>. Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a> and <a href="https://github.com/mourner/suncalc" target="_blank">suncalc</a>. Moon images provided by <a href="https://www.cpp.edu/~jcclark/index.shtml" target="_blank">Curtis Clark</a>.</p>
+		<p>Due to the calculations that this website is built on, results may not always be accurate. Please use at your own discretion.</p>
+		</footer>
+
+	</body>
+	<script>
+		window.onload = function getDataThisMonth() {
+			//Get selected selection objects
+			var selectedMonth = document.getElementById("monthSelect");
+			var selectedYear = document.getElementById("yearSelect");
+			var selectedCity = document.getElementById("cityChoiceSelect");
+
+			//Update selected values to reflect current date
+			var currentDate = new Date();
+			selectedMonth.value = currentDate.getMonth().toString();
+			selectedYear.value = currentDate.getFullYear().toString();
+
+			//Get selected values
+			var monthValue = selectedMonth.value;
+			var yearValue = selectedYear.value;
+			var cityValue = selectedCity.value;
+
+			var monthData = getMonthData(monthValue, yearValue, cityValue);
+			
+			var i = 0;
+			while(i < monthData.length) {
+				document.getElementById("calendarTable").rows[(i+1)].cells[0].innerHTML = monthData[i][3];
+				document.getElementById("calendarTable").rows[(i+1)].cells[1].innerHTML = monthData[i][1];
+				document.getElementById("calendarTable").rows[(i+1)].cells[2].innerHTML = monthData[i][4];
+				document.getElementById("calendarTable").rows[(i+1)].style.backgroundColor = monthData[i][2];
+				i=i+1;
+			}
+		};
+
+		function getDataThisMonth() {
+			//Get selected month and year
+			var selectedMonth = document.getElementById("monthSelect");
+			var monthValue = selectedMonth.options[selectedMonth.selectedIndex].value;
+			var selectedYear = document.getElementById("yearSelect");
+			var yearValue = selectedYear.options[selectedYear.selectedIndex].value;
+			var selectedCity = document.getElementById("cityChoiceSelect");
+			var cityValue = selectedCity.options[selectedCity.selectedIndex].value;
+
+			var monthData = getMonthData(monthValue, yearValue, cityValue);
+			console.log(monthData);
+			
+			//monthData is as follows: moonAge, moonTwwa, moonEnergy, date, risetime
+			var i = 0;
+			while(i < monthData.length) {
+				document.getElementById("calendarTable").rows[(i+1)].cells[0].innerHTML = monthData[i][3];
+				document.getElementById("calendarTable").rows[(i+1)].cells[1].innerHTML = monthData[i][1];
+				document.getElementById("calendarTable").rows[(i+1)].cells[2].innerHTML = monthData[i][4];
+				document.getElementById("calendarTable").rows[(i+1)].style.backgroundColor = monthData[i][2];
+				i=i+1;
+			}
+		};
+	</script>
+</html>

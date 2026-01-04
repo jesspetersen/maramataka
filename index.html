@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+	<head>
+		<html lang="en">
+		<title>Te Maramataka a Te Whānau ā Apanui</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="styles/w3.css">
+		<link rel="stylesheet" href="styles/style.css">
+		<link rel="stylesheet" href="custom-font/moonphases.css">
+		<link rel="stylesheet" href="styles/font-awesome.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+		<style>
+		body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+		.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+		.fa-anchor,.fa-coffee {font-size:200px}
+		</style>
+		<script type="text/javascript" src="scripts/script.js"></script>
+		<script type="text/javascript" src="scripts/suncalc.js"></script>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-72792171-2"></script>
+			<script>
+  		window.dataLayer = window.dataLayer || [];
+  		function gtag(){dataLayer.push(arguments);}
+  		gtag('js', new Date());
+
+  		gtag('config', 'UA-72792171-2');
+		</script>
+		</head>
+	<body>
+
+		<!-- Header -->
+		<div class="w3-bar w3-black">
+			<a href="monthly.html" class="w3-bar-item w3-button w3-right">Monthly</a>
+			<a href="index.html" class="w3-bar-item w3-button w3-right">Daily</a>
+		</div>
+		<header class="w3-container w3-indigo w3-center" style="padding:128px 16px">
+			<h1 class="w3-margin w3-jumbo"><b>Te Maramataka a Te Whānau ā Apanui</b></h1>
+			<p class="w3-xlarge"><em>Right now it is:</em></p>
+			<h1 id="moonImage"><3</h1>
+			<p id="moonPhaseText" class="w3-xlarge"><3</p>
+			<p id="dateText" class="w3-large"><3</p>
+		<div class="w3-row w3-mobile">
+			<div class="w3-third w3-container">
+			</div>
+			<div id="selectContainer" class="w3-mobile w3-third w3-container">
+				<select id="cityChoiceSelect" class="w3-select w3-border" name="cityChoice" onchange="updateNextMoonrise()">
+					<option value="0" selected>Auckland</option>
+					<option value="1">Wellington</option>
+					<option value="2">Christchurch</option>
+					<option value="3">Hamilton</option>
+					<option value="4">Tauranga</option>
+					<option value="5">Napier/Hastings</option>
+					<option value="6">Dunedin</option>
+					<option value="7">Palmerston North</option>
+					<option value="8">New Plymouth</option>
+					<option value="9">Nelson</option>
+				</select>
+			</div>
+			<div class="w3-third w3-container">
+			</div>
+		</div>
+		<div id="nextMoonDiv">
+			<p class="w3-xlarge"><em>Next moonrise is:</em></p>
+			<p id="nextMoonPhaseText" class="w3-xlarge"><3</p>
+			<p id="nextMoonriseText" class="w3-large"><3</p>
+		</div>
+		</header>
+
+		<!-- Footer -->
+		<footer class="w3-container w3-padding-64 w3-center w3-opacity">  
+			<!--<div class="w3-xlarge w3-padding-32">
+				<i class="fa fa-instagram w3-hover-opacity"></i>
+				<i class="fa fa-snapchat w3-hover-opacity"></i>
+				<i class="fa fa-pinterest-p w3-hover-opacity"></i>
+				<i class="fa fa-twitter w3-hover-opacity"></i>
+				<i class="fa fa-linkedin w3-hover-opacity"></i>
+			</div>-->
+		<p>Created by <a href="https://jesspetersen.net/" target="_blank">Jess Petersen</a>, and inspired by <a href="https://tuhi.co.nz/" target="_blank">Tuhi</a>. Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a> and <a href="https://github.com/mourner/suncalc" target="_blank">suncalc</a>. Moon images provided by <a href="https://www.cpp.edu/~jcclark/index.shtml" target="_blank">Curtis Clark</a>.</p>
+		<p>Due to the calculations that this website is built on, results may not always be accurate. Please use at your own discretion.</p>
+		</footer>
+
+	</body>
+	<script>
+		window.onload = function getData() {
+			//Get current date and time
+			var date = new Date();
+			document.getElementById("dateText").innerHTML = date;
+			currentMoon = getCurrentMoonDataTwwa(date);
+			currentMoonAge = currentMoon[0];
+			currentMoonPhase = currentMoon[1];
+			currentMoonImage = getMoonImage(currentMoonAge);
+
+			//Set current moon phase
+			document.getElementById("moonImage").innerHTML = currentMoonImage;
+			document.getElementById("moonPhaseText").innerHTML = currentMoonPhase;
+
+			//Get selected city
+			var selectedCity = document.getElementById("cityChoiceSelect");
+			var cityValue = selectedCity.options[selectedCity.selectedIndex].value;
+
+			nextMoon = getNextMoonriseData(date, cityValue, currentMoonAge);
+			nextMoonDateTime = nextMoon[0];
+			nextMoonPhase = nextMoon[1];
+
+			//Display next moonrise
+			document.getElementById("nextMoonriseText").innerHTML = nextMoonDateTime;
+			document.getElementById("nextMoonPhaseText").innerHTML = nextMoonPhase;
+		};
+
+		updateNextMoonrise = function() {
+			var date = new Date();
+			currentMoon = getCurrentMoonDataTwwa(date);
+			currentMoonAge = currentMoon[0];
+			var selectedCity = document.getElementById("cityChoiceSelect");
+			var cityValue = selectedCity.options[selectedCity.selectedIndex].value;
+
+			nextMoon = getNextMoonriseData(date, cityValue, currentMoonAge);
+			nextMoonDateTime = nextMoon[0];
+			nextMoonPhase = nextMoon[1];
+
+			//Display next moonrise
+			document.getElementById("nextMoonriseText").innerHTML = nextMoonDateTime;
+			document.getElementById("nextMoonPhaseText").innerHTML = nextMoonPhase;
+		};
+	</script>
+</html>
